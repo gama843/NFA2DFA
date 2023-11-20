@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" data-websigner.1.0.7="true">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>NFA2DFA Docs</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<link rel="stylesheet" href="./rts/main.css">
+	<link rel="stylesheet" href="./rts/css">
+	<style>
+			.bold-text {
+				  font-weight: bold;
+				}
+
+			a {
+				display: block;
+			}
+
+			img {
+				max-width: 98vw;
+			}
+
+			ul {
+				position: absolute;
+				left: 0;
+				padding-inline-start: 5px;
+				list-style-type: none;
+
+			}
+
+			li {
+				left:  0;
+			}
+
+			body
+			{
+				font-family: Roboto, sans-serif;
+				color: #34434b;
+				background-color: #f4fbfc;
+				padding: 5rem 1.25rem; /* 80 20 */
+			}
+
+			p {
+				font-size: 12px !important;
+			}
+			.container
+			{
+				width: 100%;
+				max-width: 640px; /* 960 */
+				margin: 0 auto;
+			}
+
+			.container h1
+			{
+				font-size: 42px;
+				font-weight: 300;
+				color: #5594b3;
+				margin-bottom: 40px;
+			}
+				.container h1 a:hover,
+				.container h1 a:focus
+				{
+					color: #a664b7;
+				}
+
+			.container p
+			{
+				line-height: 1.6;
+				font-size: 12px;
+			}
+
+			.faq
+			{
+			}
+			.faq input
+			{
+				width: 100%;
+				height: 60px;
+				font-size: 20px;
+				background-color: #fff;
+				box-shadow: 0px 2px 4px rgba( 52, 67, 75, .2 );
+				display: block;
+				padding: 0 20px;
+				margin-bottom: 40px;
+
+				-webkit-transition: box-shadow .1s linear;
+				transition: box-shadow .1s linear;
+			}
+			.faq input::-webkit-input-placeholder	{ color: #a1bdcb !important; }
+			.faq input::-moz-placeholder			{ color: #a1bdcb !important; }
+			.faq input:-ms-input-placeholder		{ color: #a1bdcb !important; }
+			.faq input:focus
+			{
+				box-shadow: 0px 4px 8px rgba( 52, 67, 75, .4 );
+			}
+			.faq .highlight
+			{
+				background-color: #fffd77;
+			}
+			.faq > ul
+			{
+			}
+				.faq > ul > li
+				{
+				}
+				.faq > ul > li:not( :first-child )
+				{
+					border-top: 1px solid #dcebed;
+					margin-top: 20px;
+					padding-top: 20px;
+				}
+				.faq > ul > li.is-hidden
+				{
+					display: none;
+				}
+					.faq > ul > li h2
+					{
+						font-size: 12px;
+						font-weight: 700;
+					}
+						.faq > ul > li h2:hover,
+						.faq > ul > li h2:focus,
+						.faq > ul > li.is-active h2,
+						.faq > ul > li:target h2
+						{
+							color: #a664b7;
+						}
+					.faq > ul > li > div
+					{
+						display: none;
+					}
+					.faq > ul > li.is-active > div,
+					.faq > ul > li:target > div
+					{
+						display: block;
+						margin-top: 10px;
+					}
+
+				.faq__notfound
+				{
+					font-size: 20px;
+					font-style: italic;
+					display: none;
+				}
+				.faq__notfound.is-visible
+				{
+					display: block;
+				}
+
+			.container footer
+			{
+				color: #a1bdcb;
+				margin-top: 40px;
+			}
+				.container footer a:hover,
+				.container footer a:focus
+				{
+					color: #5594b3;
+				}
+
+	</style>
+<script charset="utf-8" src="./rts/button.550007e6cc79c00bac51111d8131d860.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style></head>
+
+<body class="vsc-initialized">
+
+
+
+
+<div class="container" role="main">
+
+	<h2><a href="http://newton.krasavnedokonalosti.sk">Welcome to NFA2DFA docs, how can I help?</a></h2>
+
+	<div class="faq">
+		<input type="search" value="" placeholder="nfa2mindfa">
+		<ul>
+<li id="faq-1">
+  <h2><a href="#faq-1">powerSet</a></h2>
+  <div>
+    <p class="bold-text">Function Name: powerSet</p>
+    <p>&nbsp;</p> <!-- This is used to add an empty line -->
+
+    <p class="bold-text">Type Signature: [State] -> [[State]]</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+      The powerSet function generates the power set of a given list. The power set of a set is a collection of all possible subsets of the original set. In this function, the input is a list of State objects, which can be thought of as a set of states. The output is a list of lists, where each sublist is a subset of the original set of states.
+    </p>
+    <p>
+      The function works recursively. For an empty input list, it returns a list containing an empty list, which represents the power set of an empty set. For a non-empty input list, it recursively computes the power set of the tail of the list (i.e., the sublist of the input list obtained by removing the first element), and then adds the first element of the input list to each subset in this power set, appending these new subsets to the power set of the tail.
+    </p>
+  </div>
+</li>
+
+
+			<li id="faq-2">
+  <h2><a href="#faq-2">lambdaClosure</a></h2>
+  <div>
+    <p class="bold-text">Type Signature: NFA -> State -> [State]</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The lambdaClosure function computes the lambda (ε) closure of a given state in a given non-deterministic finite automaton (NFA). The lambda closure of a state in an NFA is the set of states that can be reached from the given state by following zero or more lambda transitions. Lambda transitions are transitions that do not consume any input symbols.
+    </p>
+    <p>
+    The function takes as input an NFA and a state of that NFA, and returns a list of states representing the lambda closure of the input state.
+    </p>
+    <p>
+    The function operates by first adding the input state to a list, and then recursively searching for states that can be reached by lambda transitions from states in this list. It utilizes a helper function lamClosHelper which performs the recursive search. In this helper function, for each state in the list, if it has no lambda transitions (according to the lookup in the NFA's lambda transition table), it's simply added to the resulting list. If it does have lambda transitions, the states reachable by these transitions are added to the list for further processing, and the process continues with the extended list.
+    </p>
+  </div>
+</li>
+
+<li id="faq-3">
+  <h2><a href="#faq-3">nfa2dfa</a></h2>
+  <div>
+    <p class="bold-text">Function Name: nfa2dfa</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: NFA -> DFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The nfa2dfa function transforms a non-deterministic finite automaton (NFA) into a deterministic finite automaton (DFA). This transformation is a standard operation in automata theory and is necessary for certain computations and analyses that are simpler or more efficient with DFAs than NFAs.
+    </p>
+    <p>
+    The function takes as input an NFA and produces a DFA. The set of states of the DFA is based on the power set of the states of the NFA, with each state in the DFA corresponding to a set of states in the NFA. This is why the states of the DFA are represented as integers from 0 to the size of the power set minus 1. The alphabet of the DFA is the same as that of the NFA.
+    </p>
+    <p>
+    The transition function of the DFA is constructed by iterating over the states (sets of states of the NFA) and symbols of the alphabet, and for each pair, determining the set of states that can be reached in the NFA by a transition on the symbol, followed by zero or more lambda transitions. The index of this set in the power set is the target state in the DFA for the transition.
+    </p>
+    <p>
+    The start state of the DFA corresponds to the lambda closure of the start state of the NFA.
+    </p>
+    <p>
+    The set of accept states of the DFA are those states which include at least one accept state of the NFA.
+    </p>
+  </div>
+</li>
+
+<li id="faq-4">
+  <h2><a href="#faq-4">minimizeDFA</a></h2>
+  <div>
+    <p class="bold-text">Function Name: minimizeDFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> DFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The minimizeDFA function takes a deterministic finite automaton (DFA) and returns a minimized version of the DFA, that recognizes the same language but with the fewest possible states.
+    </p>
+    <p>
+    The function first removes unreachable and dead states from the input DFA. Unreachable states are those that can't be reached from the start state, and dead states are those from which no accept state can be reached. These two steps result in a DFA that recognizes the same language but may still have redundant states.
+    </p>
+    <p>
+    The main part of the function then performs an equivalence partitioning of the states. This process iteratively groups states that have the same transition behavior until no more states can be grouped. The result is a partition of the states where each group of states can be replaced by a single representative without changing the recognized language.
+    </p>
+    <p>
+    Finally, the function constructs the minimized DFA. The states of the minimized DFA are the groups of states in the partition. The transition function of the minimized DFA is based on the transition function of the original DFA, but with each state replaced by its group representative. The start state and accept states of the minimized DFA are the representatives of the groups containing the start state and accept states of the original DFA, respectively.
+    </p>
+  </div>
+</li>
+
+<li id="faq-5">
+  <h2><a href="#faq-5">initialPartition</a></h2>
+  <div>
+    <p class="bold-text">Function Name: initialPartition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> Partition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The initialPartition function takes a deterministic finite automaton (DFA) as input and returns the initial partition of its states.
+    </p>
+    <p>
+    This function is part of the process of minimizing a DFA. The process starts by creating an initial partition of the states into two groups: the accept states and the non-accept states.
+    </p>
+    <p>
+    The initialPartition function implements this step. It returns a list of two groups. The first group is the list of accept states of the DFA, and the second group is the list of non-accept states. The non-accept states are computed as the set difference between all states of the DFA and the accept states.
+    </p>
+    <p>
+    The purpose of this initial partition is to separate states that are obviously distinguishable: any accept state is distinguishable from any non-accept state because one leads to accepted input and the other does not. This initial partition serves as the starting point for further refinements in the DFA minimization process.
+    </p>
+  </div>
+</li>
+
+			<li id="faq-6">
+  <h2><a href="#faq-6">createTransitionTable</a></h2>
+  <div>
+    <p class="bold-text">Function Name: createTransitionTable</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: [(State, Symbol, State)] -> TransitionTable</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The createTransitionTable function transforms a deterministic finite automaton's (DFA's) transition function representation into a format that is used in the transition table.
+    </p>
+    <p>
+    The transition function of a DFA is traditionally represented as a list of tuples (s, a, sp), where s is the current state, a is the input symbol, and sp is the next state.
+    </p>
+    <p>
+    However, for the process of minimizing a DFA, a different representation is often more useful. In this case, it is represented as a list of tuples, where the first element is a pair (s, a) and the second element is sp. In other words, the transition table is a mapping from pairs of states and symbols to states.
+    </p>
+    <p>
+    The createTransitionTable function takes the transition function of a DFA as input (represented as a list of (s, a, sp) tuples) and returns this transition table representation. It does so by simply reformatting each tuple in the input list.
+    </p>
+  </div>
+</li>
+
+<li id="faq-7">
+  <h2><a href="#faq-7">partitionDFA</a></h2>
+  <div>
+    <p class="bold-text">Function Name: partitionDFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: Partition -> TransitionTable -> [Symbol] -> Partition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The partitionDFA function refines the partition of the states of a deterministic finite automaton (DFA) until no further refinement is possible. The refinement process is essential in the DFA minimization algorithm.
+    </p>
+    <p>
+    This function takes as input the current partition (a list of groups of states), the transition table (which represents the transition function of the DFA), and the alphabet of the DFA. It proceeds by continuously refining the partition. A partition is refined by dividing each group of states in the partition into subgroups such that states that transition to different groups under the same symbol are separated.
+    </p>
+    <p>
+    The process of refinement is iterated until no further refinement is possible, i.e., until the partition remains unchanged after a refinement step. The function then returns this final, maximally refined partition.
+    </p>
+    <p>
+    The returned partition can then be used to construct the state set of the minimized DFA, where each group in the partition corresponds to a single state in the minimized DFA.
+    </p>
+  </div>
+</li>
+
+<li id="faq-8">
+  <h2><a href="#faq-8">refine</a></h2>
+  <div>
+    <p class="bold-text">Function Name: refine</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: Partition -> TransitionTable -> [Symbol] -> Partition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The refine function refines a partition of the states of a deterministic finite automaton (DFA) based on the transition table and the input alphabet.
+    </p>
+    <p>
+    This function takes as input the current partition (a list of groups of states), the transition table (which represents the transition function of the DFA), and the alphabet of the DFA. It proceeds by refining each group in the partition.
+    </p>
+    <p>
+    The refinement of a group is performed by the function splitGroup, which divides a group into subgroups such that states that transition to different groups under the same symbol are separated. The result is a new partition where each group has been replaced by its subgroups.
+    </p>
+    <p>
+    The refine function then concatenates the subgroups from all the groups in the partition to form the new refined partition. This new partition is returned as the result.
+    </p>
+    <p>
+    In the context of the DFA minimization algorithm, the refine function is used to iteratively refine the partition of the states of a DFA until no further refinement is possible.
+    </p>
+  </div>
+</li>
+
+<li id="faq-9">
+  <h2><a href="#faq-9">splitGroup</a></h2>
+  <div>
+    <p class="bold-text">Function Name: splitGroup</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: [State] -> TransitionTable -> Partition -> [Symbol] -> Partition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The splitGroup function takes a group of states from a deterministic finite automaton (DFA), the transition table, the current partition of states, and the DFA's alphabet. It produces a partition of the input group into subgroups such that any two states that transition to different groups under the same symbol are placed in different subgroups.
+    </p>
+    <p>
+    The function applies groupBy to the group of states. The comparison function provided to groupBy compares two states based on their transitions under each symbol in the alphabet. For each symbol, it uses findTransition to determine the group each state transitions to, and findGroup to determine the index of that group in the partition. If the indices match for all symbols, the states are considered equivalent and placed in the same subgroup.
+    </p>
+    <p>
+    As a result, splitGroup divides the input group into subgroups where states that behave identically with respect to the transition function and the current partition are grouped together.
+    </p>
+    <p>
+    This function is a key component in the iterative refinement process of the DFA minimization algorithm.
+    </p>
+  </div>
+</li>
+
+<li id="faq-10">
+  <h2><a href="#faq-10">findTransition</a></h2>
+  <div>
+    <p class="bold-text">Function Name: findTransition</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: State -> Symbol -> TransitionTable -> State</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The findTransition function takes as input a state (s), a symbol (a), and a transition table (tt) from a deterministic finite automaton (DFA). It outputs the state that s transitions to under the symbol a according to the transition table.
+    </p>
+    <p>
+    The function performs a lookup operation in the transition table to find the transition for the given state-symbol pair. If the lookup operation fails (i.e., there is no explicit transition defined for this pair in the table), the function returns the input state s by default.
+    </p>
+    <p>
+    In the context of a DFA, this effectively assumes self-looping transitions on missing entries, where a state transitions to itself under any symbol for which an explicit transition isn't defined. This behavior can be useful in certain contexts like DFA minimization, where incomplete transition tables may be encountered.
+    </p>
+  </div>
+</li>
+
+
+<li id="faq-11">
+  <h2><a href="#faq-11">findGroup</a></h2>
+  <div>
+    <p class="bold-text">Function Name: findGroup</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: State -> Partition -> Int</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The findGroup function takes a state (s) and a partition (p) of states as input, and it returns the index of the group in the partition to which the input state belongs.
+    </p>
+    <p>
+    The function applies the elem function to each group in the partition to create a list of boolean values, where True indicates that the state is in the corresponding group and False otherwise. The elemIndex function is then used to find the index of the first True value in this list, which corresponds to the index of the group in the partition that contains the state.
+    </p>
+    <p>
+    If the state is not found in any group, fromJust applied to Nothing would lead to a runtime error. Therefore, it is assumed that the state is present in the partition; if this is not guaranteed, a different error-handling approach may be needed.
+    </p>
+  </div>
+</li>
+
+<li id="faq-12">
+  <h2><a href="#faq-12">renameState</a></h2>
+  <div>
+    <p class="bold-text">Function Name: renameState</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: State -> [(State, [State])] -> State</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The renameState function is designed to map states in the old DFA to the states of a new minimized DFA.
+    </p>
+    <p>
+    It takes a state s from the old DFA and a list of tuples ss, each containing a state from the new DFA and its corresponding states in the old DFA, and it returns the new state that corresponds to the old state s.
+    </p>
+    <p>
+    The function uses list comprehension to create a list of tuples where each tuple contains a boolean value that is True if the old state s is in the corresponding group of states and False otherwise, and the new state n. The lookup function is then used to find the new state that corresponds to True in this list, which represents the new state that the old state s maps to.
+    </p>
+    <p>
+    If the old state s is not found in any group, the lookup function will return Nothing, and fromMaybe will return -1. This means that the function assumes that each state in the old DFA is present in the new DFA; if this is not guaranteed, a different error-handling approach may be needed.
+    </p>
+  </div>
+</li>
+
+<li id="faq-13">
+  <h2><a href="#faq-13">reachableStates</a></h2>
+  <div>
+    <p class="bold-text">Function Name: reachableStates</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> [State]</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The reachableStates function is used to find all states in a given DFA (Deterministic Finite Automaton) that can be reached from the start state.
+    </p>
+    <p>
+    This function uses a Depth-First Search (DFS) algorithm to traverse the DFA from the start state and it collects all visited states. The reachableStates function is defined recursively, with the base case being when the current state has already been visited. In that case, it simply returns the list of visited states.
+    </p>
+    <p>
+    The successors helper function is used to find all states that can be reached from the current state in one transition. It uses a list comprehension to extract all states s' that can be reached from the current state s according to the DFA's transition function (dfaDelta).
+    </p>
+    <p>
+    Note that reachableStates returns the list of all states reachable from the start state, not including the start state itself unless there's a transition from the start state back to itself.
+    </p>
+    <p>
+    This function can be used to identify unreachable states in the DFA, which can be useful for DFA minimization and optimization tasks.
+    </p>
+  </div>
+</li>
+
+<li id="faq-14">
+  <h2><a href="#faq-14">removeUnreachableStates</a></h2>
+  <div>
+    <p class="bold-text">Function Name: removeUnreachableStates</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> DFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The removeUnreachableStates function is used to prune all unreachable states from a given DFA (Deterministic Finite Automaton). This operation is often required as part of DFA minimization or simplification procedures.
+    </p>
+    <p>
+    The function begins by calculating the set of reachable states from the DFA's start state using the reachableStates helper function. It then creates a new set of states (newStates) by intersecting the set of reachable states with the DFA's current set of states. This operation ensures that only reachable states are included in newStates.
+    </p>
+    <p>
+    Similarly, the transition function (newDelta) of the resulting DFA only includes transitions between states in newStates. This is achieved by filtering the original DFA's transition function (dfaDelta) to include only transitions where both the source and the destination states are elements of newStates.
+    </p>
+    <p>
+    The function also updates the set of accept states (newAcceptStates) to include only those that are reachable from the start state.
+    </p>
+    <p>
+    The result is a new DFA that is identical to the input DFA, but with all unreachable states removed. This function is useful for optimizing DFAs, as unreachable states do not affect the accepted language of the automaton, but may consume unnecessary computational resources.
+    </p>
+  </div>
+</li>
+
+<li id="faq-15">
+  <h2><a href="#faq-15">liveStates</a></h2>
+  <div>
+    <p class="bold-text">Function Name: liveStates</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> [State]</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The liveStates function is used to compute the set of live states in a given DFA (Deterministic Finite Automaton). A state is considered 'live' if there exists a path from that state to any of the DFA's accept states.
+    </p>
+    <p>
+    The function employs a Depth-First Search (DFS) algorithm starting from each of the DFA's accept states. The DFS helper function works by visiting each state exactly once, and if the state has not been visited before, it recursively visits all its predecessor states (those that have transitions leading to the current state).
+    </p>
+    <p>
+    The predecessors helper function is used to find all predecessor states of a given state. It does this by examining the DFA's transition function and selecting those states that have transitions leading to the given state.
+    </p>
+    <p>
+    The result of liveStates is a list of all states from which an accept state can be reached, i.e., all live states in the DFA. This function can be used for DFA optimization tasks such as dead state removal.
+    </p>
+  </div>
+</li>
+
+<li id="faq-16">
+  <h2><a href="#faq-16">removeDeadStates</a></h2>
+  <div>
+    <p class="bold-text">Function Name: removeDeadStates</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: DFA -> DFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The removeDeadStates function is used to generate a new DFA from a given DFA by removing all the dead states. A state is considered 'dead' if there does not exist any path from that state to any of the DFA's accept states.
+    </p>
+    <p>
+    The function first calculates the live states in the given DFA using the liveStates function. Then, it creates a new DFA where the states are the intersection of the live states and the original DFA's states, hence eliminating the dead states.
+    </p>
+    <p>
+    The transition function (dfaDelta) of the new DFA only includes transitions that start and end in the new set of states. Also, the set of accept states for the new DFA is the intersection of the live states and the original DFA's accept states.
+    </p>
+    <p>
+    By removing the dead states, removeDeadStates simplifies the DFA, making it easier to analyze and more efficient to execute. This function is particularly useful in the optimization of DFAs.
+    </p>
+  </div>
+</li>
+
+<li id="faq-17">
+  <h2><a href="#faq-17">nfa2mindfa</a></h2>
+  <div>
+    <p class="bold-text">Function Name: nfa2mindfa</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Type Signature: NFA -> DFA</p>
+    <p>&nbsp;</p>
+
+    <p class="bold-text">Description:</p>
+    <p>
+    The nfa2mindfa function converts a given Non-deterministic Finite Automaton (NFA) to a minimized Deterministic Finite Automaton (DFA). This process involves two main steps.
+    </p>
+    <p>
+    Conversion of NFA to DFA: This is achieved using the nfa2dfa function. The resultant DFA is equivalent to the given NFA in terms of accepted languages but can have redundant states.
+    </p>
+    <p>
+    Minimization of DFA: The DFA obtained from the previous step is minimized using the minimizeDFA function. This function eliminates redundant states and simplifies the DFA while keeping the accepted language unchanged.
+    </p>
+    <p>
+    The resulting minimized DFA accepts the same language as the given NFA but with the minimum number of states possible, making it more efficient to execute and analyze.
+    </p>
+  </div>
+</li>
+
+
+		</ul>
+		<div class="faq__notfound"><p>No matches were found… Try “giza”.</p></div>
+	</div>
+</div>
+
+
+
+
+<!--
+
+	JQUERY DEPENDENCY
+-->
+
+<script src="./rts/cb=gapi.loaded_1" async=""></script><script src="./rts/cb=gapi.loaded_0" async=""></script><script src="./rts/all.js" async="" crossorigin="anonymous"></script><script type="text/javascript" async="" src="./rts/ga.js"></script><script src="./rts/jquery-v1.min.js"></script>
+<script>
+
+	'use strict';
+
+
+	// search & highlight
+
+	;( function( $, window, document, undefined )
+	{
+		var $container = $( '.faq' );
+		if( !$container.length ) return true;
+
+		var $input			= $container.find( 'input' ),
+			$notfound		= $container.find( '.faq__notfound' ),
+			$items			= $container.find( '> ul > li' ),
+			$item			= $(),
+			itemsIndexed	= [];
+
+		$items.each( function()
+		{
+			itemsIndexed.push( $( this ).text().replace( /\s{2,}/g, ' ' ).toLowerCase() );
+		});
+
+		$input.on( 'keyup', function( e )
+		{
+			if( e.keyCode == 13 ) // enter
+			{
+				$input.trigger( 'blur' );
+				return true;
+			}
+
+			$items.each( function()
+			{
+				$item = $( this );
+				$item.html( $item.html().replace( /<span class="highlight">([^<]+)<\/span>/gi, '$1' ) );
+			});
+
+			var searchVal = $.trim( $input.val() ).toLowerCase();
+			if( searchVal.length )
+			{
+				for( var i in itemsIndexed )
+				{
+					$item = $items.eq( i );
+					if( itemsIndexed[ i ].indexOf( searchVal ) != -1 )
+						$item.removeClass( 'is-hidden' ).html( $item.html().replace( new RegExp( searchVal+'(?!([^<]+)?>)', 'gi' ), '<span class="highlight">$&</span>' ) );
+					else
+						$item.addClass( 'is-hidden' );
+				}
+			}
+			else $items.removeClass( 'is-hidden' );
+
+			$notfound.toggleClass( 'is-visible', $items.not( '.is-hidden' ).length == 0 );
+		});
+	})( jQuery, window, document );
+
+
+	// toggling items on title press
+
+	;( function( $, window, document, undefined )
+	{
+		$( document ).on( 'click', '.faq h2 a', function( e )
+		{
+			e.preventDefault();
+			$( this ).parents( 'li' ).toggleClass( 'is-active' );
+		});
+	})( jQuery, window, document );
+
+
+	// auto-show item content when show results reduces to single
+
+	;( function( $, window, document, undefined )
+	{
+		var $container = $( '.faq' );
+		if( !$container.length ) return true;
+
+		var $input		= $container.find( 'input' ),
+			$items		= $container.find( '> ul > li' ),
+			$item		= $();
+
+		$input.on( 'keyup', function()
+		{
+			$item = $items.not( '.is-hidden' );
+			if( $item.length == 1 )
+				$item.addClass( 'js--autoshown is-active' );
+			else
+				$items.filter( '.js--autoshown' ).removeClass( 'js--autoshown is-active' );
+		});
+	})( jQuery, window, document );
+
+</script>
+</html>
